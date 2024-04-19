@@ -18,7 +18,11 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@config/*" : ["./src/config/*"],
+      "@component/*" : ["./src/component/*"],
+      "@api/*" : ["./src/api/*"],
+      "@module/*": ["./src/module/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
