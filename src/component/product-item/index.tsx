@@ -1,5 +1,4 @@
-import { useFetch } from "@/module/api-handler/hooks/fetcher";
-import { ProductModel } from "@/api/products";
+import { ProductModel } from "@api/products/type/product-model";
 
 interface ProductItemProps {
   loading: boolean;
