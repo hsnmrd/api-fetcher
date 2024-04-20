@@ -50,6 +50,9 @@ In the above example:
 - We define custom methods `getProduct` and `getProducts` within the `ProductsApi` class to fetch a single product by ID and fetch all products, respectively.
 - These methods utilize the `FetchCreator` class to create fetcher instances, specifying the fetcher function and a unique key for caching purposes.
 - Finally, we create an instance of `ProductsApi` named `apiProduct`, passing the appropriate base URL derived from the environment variable.
+  
+
+- **Handling Base URL and Headers:** The `apiProduct` constant is created as an instance of the `ProductsApi` class with a base URL derived from the environment variable. This approach centralizes the handling of base URLs and headers for every module, making it easier to use the fetcher with micro-services. It particularly facilitates integration with micro-services having multiple base URLs.
 
 
 This addition provides a practical example of how to define custom methods within the `ProductsApi` class and instantiate it for usage. Let me know if you need further clarification!
@@ -66,5 +69,3 @@ const ProductComponent = () => {
   // Your component logic here
 };
 ```
-
-- **Handling Base URL and Headers:** The `apiProduct` constant is created as an instance of the `ProductsApi` class with a base URL derived from the environment variable. This approach centralizes the handling of base URLs and headers for every module, making it easier to use the fetcher with micro-services. It particularly facilitates integration with micro-services having multiple base URLs.
