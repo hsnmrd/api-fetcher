@@ -1,4 +1,3 @@
-markdown
 # Project Overview
 
 This project aims to retrieve server-side information with caching capabilities utilizing the fetch mechanism. Below are the key components of the project's structure:
