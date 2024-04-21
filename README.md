@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Project Overview
 
-## Getting Started
+This project aims to retrieve server-side information with caching capabilities utilizing the fetch mechanism. Below are the key components of the project's structure:
 
-First, run the development server:
+## Api Class
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+The `Api` class serves as the primary entity responsible for sending requests. It utilizes the `fetch` function for communication with the server.
+
+## Caching Middleware
+
+The `CachingMiddleware` class acts as middleware for caching data. It provides functionalities for caching, retrieving, updating, and deleting cached data.
+
+## Fetch Hook
+
+A custom hook named `useFetch` is implemented to facilitate service consumption and caching functionality. It enables efficient data fetching while utilizing the caching mechanism for improved performance.
+
+
+markdown
+## Example Usage Tips
+
+- **Overriding Services:** To override services of a specific module, extend the `Api` class and define custom methods for fetching data. For example:
+
+```typescript
+import {Api} from "@/module/api-handler/config/fetcher";
+import {FetchCreator} from "@module/api-handler/hooks/fetcher/creator";
+import {ProductModel} from "@api/products/type/product-model";
+
+class ProductsApi extends Api {
+
+    // Custom method to fetch all products
+    getProducts = <RESPONSE = Array<ProductModel>>() => new FetchCreator(
+        this.get<RESPONSE>(this.baseUrl),
+        this.baseUrl
+    );
+
+    // Custom method to fetch a product by ID
+    getProduct = <RESPONSE = ProductModel>(productId: string) => new FetchCreator(
+        this.get<RESPONSE>(this.baseUrl + productId),
+        this.baseUrl + productId
+    );
+
+}
+
+// Create an instance of ProductsApi with the appropriate base URL
+export const apiProduct = new ProductsApi(process.env.NEXT_PUBLIC_API_DOMAIN + "/products/");
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+In the above example:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- We define custom methods `getProduct` and `getProducts` within the `ProductsApi` class to fetch a single product by ID and fetch all products, respectively.
+- These methods utilize the `FetchCreator` class to create fetcher instances, specifying the fetcher function and a unique key for caching purposes.
+- Finally, we create an instance of `ProductsApi` named `apiProduct`, passing the appropriate base URL derived from the environment variable.
+  
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **Handling Base URL and Headers:** The `apiProduct` constant is created as an instance of the `ProductsApi` class with a base URL derived from the environment variable. This approach centralizes the handling of base URLs and headers for every module, making it easier to use the fetcher with micro-services. It particularly facilitates integration with micro-services having multiple base URLs.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+This addition provides a practical example of how to define custom methods within the `ProductsApi` class and instantiate it for usage. Let me know if you need further clarification!
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Using Custom Hooks:** Utilize custom hooks like `useFetch` to consume services in client-side components. For instance:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```typescript
+import { useFetch } from "@module/api-handler/hooks/fetcher";
+import { apiProduct } from "@/module/api-handler/products";
 
-## Deploy on Vercel
+const ProductComponent = () => {
+  const { data, loading, refetch } = useFetch(apiProduct.getProduct("1"));
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+  // Your component logic here
+};
+```
