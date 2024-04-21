@@ -8,19 +8,16 @@ import { apiProduct } from "@/api/products";
 
 export default function Home() {
 
-  const { data, loading, refetch } = useFetch(apiProduct.getProduct("1"))
+  const { data, loading, refetch } = useFetch(apiProduct.getById("1"));
 
   return (
     <Container>
-      <Link className={"block"} href={"/users"}>
+      <Link className={"block"} href={"/products"}>
         <button className={"bg-amber-500 p-2"}>
           next page
         </button>
       </Link>
-      <button className={"bg-blue-600 p-2 w-fit"} onClick={refetch}>
-        refetch
-      </button>
-      <ProductItem data={data} loading={loading}/>
+      <ProductItem data={data} />
     </Container>
   );
 }
