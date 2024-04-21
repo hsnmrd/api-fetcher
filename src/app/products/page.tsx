@@ -1,13 +1,12 @@
-"use client";
 import Link from "next/link";
 import { Container } from "@component/container";
-import { ProductItem } from "@component/product-item";
 import { apiProduct } from "@/api/products";
-import { useFetch } from "@/module/api-handler/hooks/fetcher";
+import React, { Suspense } from "react";
+import { ProductsList } from "@/feature/products/products-list";
 
-export default function Home() {
+export default async function ProductsPage() {
 
-  const { data, loading } = useFetch(apiProduct.getProduct("1"));
+  const data = await apiProduct.getAll().fetcher();
 
   return (
     <Container>
@@ -16,7 +15,9 @@ export default function Home() {
           prev page
         </button>
       </Link>
-      <ProductItem data={data} loading={loading} />
+      <Suspense fallback={<p>Loading...</p>}>
+        <ProductsList products={data?.response} />
+      </Suspense>
     </Container>
   );
 }
