@@ -4,7 +4,7 @@ import { FetchCreator } from "@module/api-handler/hooks/fetcher/creator";
 
 class ProductsApi extends Api {
 
-  getById = <RESPONSE = ProductModel>(productId: string) => {
+  getById = <RESPONSE = ProductModel>(productId: string | undefined) => {
     return new FetchCreator(
       this.get<RESPONSE>(this.baseUrl + productId),
       this.baseUrl + productId
