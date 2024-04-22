@@ -1,15 +1,21 @@
+"use client"
+
 import { ProductModel } from "@api/products/type/product-model";
+import Link from "next/link";
 
 interface ProductItemProps {
-  data: ProductModel | undefined;
+  product: ProductModel | undefined;
 }
 
 export const ProductItem = (props: ProductItemProps) => {
   return (
-    <>
-      <h3 className={"whitespace-pre-wrap"}>
-        {JSON.stringify(props.data, null, 4)}
-      </h3>
-    </>
+    <Link href={`/products/${props.product?.id}`}>
+      <h2 className={"text-3xl font-bold"}>
+        {props.product?.title}
+      </h2>
+      <p>
+        {props.product?.description}
+      </p>
+    </Link>
   );
 };
