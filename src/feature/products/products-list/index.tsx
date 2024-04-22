@@ -13,7 +13,7 @@ export const ProductsList = (props: ProductsListProps) => {
   return (
     <>
       {React.Children.toArray(products?.map(product => (
-        <ProductItem data={product} />
+        <ProductItem product={product} />
       )))}
     </>
   );
