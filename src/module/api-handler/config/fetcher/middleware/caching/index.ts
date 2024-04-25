@@ -15,7 +15,7 @@ class CachingMiddleware {
     this.cache = cache;
   }
 
-  getCache = (key: string) : string | undefined => {
+  getCache = (key: string): string | undefined => {
     return this.cache?.[key];
   };
 
@@ -33,4 +33,4 @@ class CachingMiddleware {
   };
 }
 
-export const cachingMiddleware = CachingMiddleware.getInstance()
+export const cachingMiddleware = CachingMiddleware.getInstance();

@@ -3,5 +3,9 @@ interface ContainerProps {
 }
 
 export const Container = (props: ContainerProps) => {
-  return <div className={"flex gap-1 flex-col max-w-screen-2xl m-auto"}>{props.children}</div>
-}
+  return (
+    <div className={"m-auto flex max-w-screen-2xl flex-col gap-1"}>
+      {props.children}
+    </div>
+  );
+};

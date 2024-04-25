@@ -8,14 +8,13 @@ interface ProductPageParamsProps {
 }
 
 export default async function ProductPage(props: ProductPageParamsProps) {
-
   const productId = props.params.productId;
   const product = await apiProduct.getById(productId).fetcher();
 
   return (
     <Container>
       <Suspense fallback={<p>Loading...</p>}>
-        <ProductItem product={product?.response}/>
+        <ProductItem product={product?.response} />
       </Suspense>
     </Container>
   );

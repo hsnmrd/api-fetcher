@@ -9,14 +9,16 @@ export const metadata: Metadata = {
   description: "developed by Hassan Moradnezhad",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
+interface RootLayoutProps {
   children: React.ReactNode;
-}>) {
+}
+
+export default function RootLayout(props: Readonly<RootLayoutProps>) {
+  const { children } = props;
+
   return (
     <html lang="en">
-    <body className={inter.className}>{children}</body>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }
